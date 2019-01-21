@@ -14,7 +14,7 @@ import (
 var server = flag.String("server", "talk.google.com:443", "server")
 var username = flag.String("username", "", "username")
 var password = flag.String("password", "", "password")
-var status = flag.String("status", "xa", "status")
+var status = flag.String("status", "chat", "status")
 var statusMessage = flag.String("status-msg", "I for one welcome our new codebot overlords.", "status message")
 var notls = flag.Bool("notls", false, "No TLS")
 var debug = flag.Bool("debug", false, "debug output")
@@ -43,6 +43,11 @@ func main() {
 		xmpp.DefaultConfig = tls.Config{
 			ServerName:         serverName(*server),
 			InsecureSkipVerify: false,
+		}
+	} else {
+		xmpp.DefaultConfig = tls.Config{
+			ServerName: serverName(*server),
+			InsecureSkipVerify:true,
 		}
 	}
 
